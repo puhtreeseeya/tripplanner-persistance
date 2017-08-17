@@ -29,6 +29,9 @@ var utilsModule = {
     return array.splice(index, 1);
   },
 
+  // sorter: function(array){
+
+  // }
   // ~~~~~~~~~~~~~~~~~~~~~~~
     // With promises on the frontend, this is a great util function to use in a `.catch()`!
   // ~~~~~~~~~~~~~~~~~~~~~~~

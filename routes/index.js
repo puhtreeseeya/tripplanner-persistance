@@ -51,9 +51,10 @@ router.get('/api/days', function(req, res, next){
 
 router.post('/api/days/:id', function(req, res, next) {
   Day.create({
+    id: req.params.id,
     number: req.params.id 
     // hotel: req.body.hotel
-  })
+  }).catch(next)
 }); 
 
 router.post('/api/days/:id/hotel', function(req, res, next){
