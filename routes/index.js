@@ -49,30 +49,6 @@ router.get('/api/days', function(req, res, next){
     .catch(next)
 })
 
-// router.post('')
-
-// router.post('/api/days/:id/restaurants', function(req, res, next) {
-//   Day.findOrCreate({
-//     where: {
-//       number: req.params.id 
-//     }
-//   }).then(function(day) {
-//     res.json(day); 
-//   }) 
-
-// }); 
-
-// router.get('/api/days', function(req,res,next) {
-//   Day.findAll().then(function(days) {
-//     var dayCount = days.length; 
-//     return dayCount+1; 
-//   }).then(function(dayCount) {
-//     Day.create({
-//         number: dayCount
-//     })
-//   }) 
-// })
-
 router.post('/api/days/:id', function(req, res, next) {
   Day.create({
     number: req.params.id 
@@ -81,28 +57,40 @@ router.post('/api/days/:id', function(req, res, next) {
 }); 
 
 router.post('/api/days/:id/hotel', function(req, res, next){
-  console.log(req.body)
-  Day.update({hotelId: req.body},
-  {where:
-  {
-    number: req.params.id,
-  }})
+  Day.update({
+    hotelId: req.body.id
+  }, {
+    where: {
+      number: req.params.id
+    }
+  })
 })
 
 router.post('/api/days/:id/restaurant', function(req, res, next){
-  console.log(req.body)
-  day_restaurant.update({restaurantId: [req.body]},
-  {where:
-  {
-    dayId: req.params.id,
-  }})
+  Day.findOne({
+    where: {
+      number: req.params.id
+    }
+  })
+  .then(function(day) {
+    return day.addRestaurant(req.body.id)
+  }).catch(function(error) {
+    res.send('msg: YOU ALREADY ADDED THIS RESTAURANT!'); 
+  })
 })
 
+router.post('/api/days/:id/activity', function(req, res, next){ 
+  Day.findOne({
+    where: {
+      number: req.params.id
+    }
+  })
+  .then(function(day) {
+    return day.addActivity(req.body.id)
+  }).catch(function(error) {
+    res.send('msg: YOU ALREADY ADDED THIS!!'); 
+  })
+})
 
-// router.get('/api/days', function(req, res, next) {
-//   Day.findAll().then(function(days) {
-//     res.json(days)
-//   })
-// }); 
 
 module.exports = router;

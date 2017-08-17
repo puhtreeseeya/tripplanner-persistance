@@ -109,13 +109,11 @@ var tripModule = (function () {
     switchTo: switchTo,
 
     addToCurrent: function (attraction) {
-      console.log(currentDay)
-      console.log(attraction.type)
       //var data = {id: attraction.id, num_stars: attraction.num_stars, amenities: attraction.amenities, placeId: attraction.placeId, place: attraction.place}
       $.ajax({
         method: 'POST',
         url: `/api/days/${currentDay.number}/${attraction.type}`,
-        data: attraction.id
+        data: { id: attraction.id}
       })
       currentDay.addAttraction(attraction);
     },
