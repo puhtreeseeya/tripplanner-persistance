@@ -54,7 +54,13 @@ $(function () {
 
     // $.get('/api/days')
     
+    // $.get('/api/days')
+    // .then(function(){
 
+    // })
+    // .catch(function (errorObj) {
+    //   console.error(errorObj); 
+    // });
 
 
 

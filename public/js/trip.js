@@ -54,7 +54,22 @@ var tripModule = (function () {
   function addDay () { 
     if (this && this.blur) this.blur(); // removes focus box from buttons
     var newDay = dayModule.create({ number: days.length + 1 }); // dayModule
+    console.log(newDay)
     days.push(newDay);
+
+    $.ajax({
+      method: 'POST',
+      url: `/api/days/${newDay.number}`
+      // data: newDay.hotel
+    })
+    .then(function(responseData){
+      
+      console.log(responseData)
+    })
+    .catch(function (errorObj) {
+      console.error(errorObj); 
+    });
+
     if (days.length === 1) {
       currentDay = newDay;
     }
@@ -94,6 +109,14 @@ var tripModule = (function () {
     switchTo: switchTo,
 
     addToCurrent: function (attraction) {
+      console.log(currentDay)
+      console.log(attraction.type)
+      //var data = {id: attraction.id, num_stars: attraction.num_stars, amenities: attraction.amenities, placeId: attraction.placeId, place: attraction.place}
+      $.ajax({
+        method: 'POST',
+        url: `/api/days/${currentDay.number}/${attraction.type}`,
+        data: attraction.id
+      })
       currentDay.addAttraction(attraction);
     },
 
